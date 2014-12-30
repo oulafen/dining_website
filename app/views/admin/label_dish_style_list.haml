@@ -1,0 +1,20 @@
+%body
+  %script(lang="javascript" src="/javascripts/admin/label_dish_style_list.js")
+
+  =render 'admin/admin_header'
+  .container.content(style="width:100%" )
+    =render 'admin/label_choose_bar'
+    .row
+      .col-xs-2
+        .row.label_row_2
+          .col-xs-12
+            =link_to '位置类标签', label_site_list_path
+        .row.label_row_2.selected
+          .col-xs-12
+            菜系类标签
+        .row.label_row_2
+          .col-xs-12
+            = link_to '口味类标签', label_flavour_list_path
+      .col-xs-10
+        =render 'admin/label_list'
+  =render 'show/show_footer'

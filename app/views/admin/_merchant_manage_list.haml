@@ -1,0 +1,68 @@
+#checked_merchants
+  .modal-body
+    %table.table.table-striped(style="text-align:center" )
+      %thead
+        %tr
+          %td
+            序号
+          %td
+            餐馆名称
+          %td
+            联系方式
+          %td
+            餐馆ID
+          %td
+            操作
+      %tbody
+        - checked_num=0
+        - @checked_merchants.each do |m|
+          - checked_num += 1
+          %tr
+            %td
+              = checked_num
+            %td
+              = link_to "#{m[:restaurant_name]}",restaurant_detail_path(:merchant_id=>m[:id])
+            %td
+              = m[:phone]
+            %td
+              = m[:id]
+            %td
+              =link_to '修改',save_modify_merchant_id_path(:user_name=>m[:user_name])
+              =link_to '删除', delete_merchant_path(:user_name => m[:user_name]), :method => :delete,:data=>{confirm:"您确定要删除\"#{m[:restaurant_name]}\"？"}
+  .modal-footer
+    = will_paginate @checked_merchants,:previous_label=>'<<',:next_label=>'>>'
+#checking_merchants.hidden
+  #checking_merchants_block
+    .modal-body
+      %table.table.table-striped(style="text-align:center" )
+        %thead
+          %tr
+            %td
+              序号
+            %td
+              餐馆名称
+            %td
+              联系方式
+            %td
+              餐馆ID
+            %td
+              操作
+        %tbody
+          - checking_num=0
+          - @checking_merchants.each do |checking_merchant|
+            - checking_num += 1
+            %tr
+              %td
+                = checking_num
+              %td
+                = link_to "#{checking_merchant[:restaurant_name]}",restaurant_detail_path(:merchant_id=>checking_merchant[:id])
+              %td
+                = checking_merchant[:phone]
+              %td
+                = checking_merchant[:id]
+              %td
+                %a.cursor-pointer(onclick="pass_check(this)" id="#{checking_merchant[:user_name]}")
+                  通过
+                =link_to '删除', delete_merchant_path(:user_name => checking_merchant[:user_name]), :method => :delete,:data=> { confirm: "您确定要删除\"#{checking_merchant[:restaurant_name]}\"？" }
+    .modal-footer
+      = will_paginate @checking_merchants,:previous_label=>'<<',:next_label=>'>>'

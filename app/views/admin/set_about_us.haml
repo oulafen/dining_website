@@ -1,0 +1,44 @@
+%body
+  =render 'admin/admin_header'
+  .container.content(style="width:100%" )
+    .row.index_row_head
+      .col-xs-4.col_1
+        .mar_top_20
+          = link_to '餐馆管理',admin_index_path
+      .col-xs-4.col_1
+        .mar_top_20
+          = link_to '标签管理', label_site_list_path
+      .col-xs-4.col_1.selected
+        .mar_top_20
+          图片管理
+    .row
+      .col-xs-2
+        .row.label_row_2
+          .col-xs-12
+            =link_to '首页轮播图', roll_images_manager_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '首页广告位图', set_home_ad_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '背景及logo图', set_bg_logo_path
+        .row.label_row_2.selected
+          .col-xs-12
+            "关于我们"文字
+        .row.label_row_2
+          .col-xs-12
+            =link_to '"Terms & Conditions"文字', set_terms_conditions_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '"Privacy & Security"文字', set_privacy_security_path
+      .col-xs-10.label_row_1
+        %button.btn(onclick="save_about_us_text()" )
+          保存
+        = link_to '取消', set_about_us_path, :class=>'btn btn_1'
+        %span#change_success.alert_local.hidden
+          修改成功！
+        .editor_local_1
+          =render 'admin/editor'
+          #editor
+            =raw @about_us_text
+  =render 'show/show_footer'

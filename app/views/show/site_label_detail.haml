@@ -1,0 +1,40 @@
+%body(background=@bg)
+  %script(lang="javascript" src="/javascripts/show/home_label_detail.js")
+
+  =render 'show/show_header'
+  .container.home_container.content
+    .row.show_box
+      .row.hld_row_1
+        .col-xs-5.label_detail_font_1#label_content(style="margin: 20px 0px 0px 60px;" )
+          - if !@merchant_detail.empty?
+            =@label_content
+        .col-xs-5.no_padding.text-right.width-340
+          %input.detail_source_input#home_label_detail_input( placeholder="请输入餐馆名称或菜品名称" )
+        .col-xs-1.no_padding.width-60
+          .detail_source_btn#home_label_detail_search(onclick="home_label_detail_search(this)" style="margin-top:20px" rel="#{@merchants}")
+            搜索
+      - if @merchant_detail.empty?
+        .row.home_row_1
+          .col-xs-12.hld_col_1(style="margin-left: 60px;" )
+            抱歉，没有找到您相关的搜索结果
+      - if !@merchant_detail.empty?
+        -@merchant_detail.each do |merchant|
+          .row.hld_row_2(id="#{merchant["restaurant_name"]}")
+            .col-xs-4.hld_col_2
+              -if merchant["logo"].url != '/logos/original/missing.png'
+                = image_tag merchant["logo"].url(:small),:class=>'sq_30'
+              -if merchant["logo"].url == '/logos/original/missing.png'
+                = image_tag 'default_picture.png',:class=>'sq_30'
+              = link_to "#{merchant["restaurant_name"]}",restaurant_detail_path(:label_content=>@label_content,:merchant_id=>merchant["id"]), :style=>'color:#fb9f2e'
+              -if merchant["private_cuisine"]==1
+                =image_tag 'private_cuisine.jpg'
+              -if merchant["outer_sell"]==1
+                =image_tag 'outer_sell.JPG'
+            .col-xs-4.hld_col_2
+              = image_tag 'old-telephone.png'
+              %span(style="margin-left:12px" )
+                =merchant["phone"]
+            .col-xs-4.hld_col_3
+              = link_to '看菜谱',restaurant_detail_path(:label_content=>@label_content,:merchant_id=>merchant["id"]),:class=>'dish_btn'
+
+  =render 'show/show_footer'

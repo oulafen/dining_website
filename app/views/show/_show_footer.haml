@@ -1,0 +1,55 @@
+%script(lang="javascript" src="/javascripts/show/show_footer.js")
+%footer.sf_footer#footer(style="width:100%" )
+  .container.footer_container.home_row_1(style="background: #f4f4f4;" )
+    %hr.hr
+    .row(style="text-align:center" )
+      .col-xs-12
+        %span
+          %a.btn-info-1.h_btn_1(onclick="show_mail_form()")
+            联系我们
+        %span
+          %a.btn-info-1.h_btn_1(href="/login")
+            商家登录
+        %span
+          %a.btn-info-1.h_btn_1(href="/new_merchant")
+            商家注册
+        %span
+          %a.btn-info-1.h_btn_1(href="http://www.eatparadise.com.au")
+            吃货天堂优惠劵集
+    .font_div_3(style="text-align:center" )
+      =image_tag 'old-telephone.png'
+      联系电话：+61-417-629-211
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      =image_tag 'sina-logo.png'
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      关注我们
+    .row#ie_margin(style="text-align:center;margin-top:8px" )
+      .font_div_3
+        Copyright  ©  2014  EATPARADISE.&nbsp All&nbsp rights&nbsp reserved.
+        %a(href="about")
+          &nbsp About
+        &nbsp|&nbsp
+        %a(href="terms_conditions")
+          Terms & Conditions
+        &nbsp|&nbsp
+        %a(href="privacy_security")
+          Privacy & Security
+:javascript
+  $(window).ready(function(){
+      $(window).bind("resize", footer_at_bottom());
+
+      function footer_at_bottom() {
+          console.log("ss")
+          $(".content").css("min-height", $(window).height() - 168);
+
+      }
+      footer_at_bottom();
+      function is_IE_browser() {
+          var user_agent = navigator.userAgent.toLowerCase();
+          return user_agent.match(/rv:([\d.]+)\) like gecko/) || user_agent.match(/msie ([\d.]+)/);
+      }
+      if (is_IE_browser()&&is_IE_browser()[1]=='10.0'){
+          $("#ie_margin").addClass('margin_bottom_18')
+      }
+
+  });

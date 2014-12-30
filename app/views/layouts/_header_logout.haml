@@ -1,0 +1,7 @@
+.right-2
+  welcome，
+  - if @merchant[:login_type] == 'user'
+    =@merchant[:restaurant_name]
+  - if @merchant[:login_type] == 'admin'
+    管理员
+  =link_to '登出', logout_path

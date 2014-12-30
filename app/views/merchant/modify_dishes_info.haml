@@ -1,0 +1,98 @@
+%body
+  %script(lang="javascript" src="/javascripts/merchants/modify_dishes_info.js")
+
+  #present_index.content
+    =render 'merchant/merchant_header'
+    .container#modify_dish_label
+      .row
+        .col-xs-3
+          =link_to '菜品管理',dishes_management_path,:onclick=>"clear_localstorage()"
+          %span
+            >>修改菜品信息
+        .row
+          .col-xs-12.add_dish_div
+            =form_for :dish do |f|
+              .row.login_row_1
+                .col-xs-3.add-on-1
+                  菜名：
+                .col-xs-3
+                  = f.text_field :name, :class=>"form-control", :id=>'dish_name'
+              .row.login_row_1
+                .col-xs-3.add-on-1
+                  价格：
+                .col-xs-3
+                  = f.text_field :price, :class=>"form-control", :id=>'dish_price'
+                .col-xs-2
+                  元/份
+              .row.login_row_1
+                .col-xs-3.add-on-1
+                  上传图片：
+                .col-xs-3
+                  %input.form-control#show_logo_input
+                  = f.file_field :photo,:class=>"form-control", :id=>'logo_input', :style=>'display:none'
+                .col-xs-1
+                  %a#overlook(style="cursor:pointer;" )
+                    浏览
+                .col-xs-4
+                  %font(style='color:red')
+                    *仅支持上传.jpg .png .gif文件
+              .row.login_row_1
+                .col-xs-3.add-on-1
+                  备注：
+                .col-xs-3
+                  = f.text_area :remark,  :class=>"form-control", :style=>'height:70px',:id=>"remark"
+
+              .row.login_row_1
+                .col-xs-3.add-on-1
+                  标签：
+                .col-xs-4#labels_content
+                  -if !@selected_labels.empty?
+                    - @selected_labels.each do |d|
+                      .btn.btn_2(disabled='disabled' )
+                        .h4
+                          =raw d["content"]
+
+                .col-xs-4
+                  %a#more_labels(onclick="show_more_labels()" style="cursor:pointer;")
+                    +更多标签
+              .row.login_row_3
+                .col-xs-1
+                  = f.submit "确认", :class=> "btn", :id=>'dish_submit', :onclick=>'clear_localstorage()'
+                .col-xs-1
+                  = link_to '取消', dishes_management_path, :class=>'btn btn_1',:onclick=>"clear_localstorage()"
+              - if session[:success] == 'true'
+                .row
+                  .col-xs-1
+                  .col-lg-3
+                    =render 'merchant/modify_dish_success'
+
+  #label_choose.hidden.content
+    =render "label_choose_header"
+    .container#labels(rel="#{@selected_labels}" style="width:100%" )
+      .row.index_row_head
+        %a.col-xs-6.col_1.selected#dish_style_block
+          #dish_style.mar_top_20.cursor-pointer
+            菜系类标签
+        %a.col-xs-6.col_1#taste_block
+          #taste.mar_top_20.cursor-pointer
+            口味类标签
+    .label_row_1.content
+      .col-xs-2
+        %input.form-control(type="text" style="height:30px; width:170px" id="content")
+      .col-xs-1
+        %input(type="radio" value="1" name="category" id="label_category_id1_value_rellabel_site_list") 位置类
+      .col-xs-1
+        %input(type="radio" value="2" name="category" id="label_category_id2_value_rellabel_dish_style_list") 菜系类
+      .col-xs-1
+        %input(type="radio" value="3" name="category" id="label_category_id3_value_rellabel_flavour_list") 口味类
+      .col-xs-1
+        .btn.btn-default(style="height:30px" onclick="add_new_merchant_label('#{@merchant[:user_name]}')" )
+          添加新标签
+      %br
+      .row.login_row_1.hidden(id='postcode' style="margin-top:30px" )
+        .col-xs-9(style="margin-left:15px" )
+          %input.form-control(type="text" style="height:30px; width:170px" id="postcode_input" placeholder="PostCode")
+      .col-lg-10(style="width:100%" )
+        =render 'merchant_dish_label_choose'
+  =render 'show/show_footer'
+

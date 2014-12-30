@@ -1,0 +1,195 @@
+%body
+  %link{:href => "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css", :rel => "stylesheet"}
+  %link{:href => "http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+  %script(lang="javascript" src="/javascripts/merchants/merchant_index.js")
+  #present_index.content
+    =render 'merchant/merchant_header'
+    .container#merchant_label(style="width:100%" )
+      .row.index_row_head
+        .col-xs-6.col_1.selected
+          .mar_top_20
+            基本信息
+        .col-xs-6.col_1
+          .mar_top_20
+            =link_to '菜品管理', dishes_management_path,:onclick=>"clear_localstorage()"
+      =form_for :merchant,  :html=>{:multipart=>true} do |f|
+        .row
+          .col-xs-12(style="margin:40px 200px" )
+            - if session[:merchant_update_success] == 'true'
+              .row.login_row_1
+                .col-xs-2
+                .col-xs-3
+                  =render "merchant/merchant_update_success"
+            .row
+              .col-xs-3.add-on-1
+                用户名：
+              .col-xs-3
+                = f.text_field :user_name, :disabled =>"disabled", :class=>'form-control height'
+              .col-xs-1
+                %font.red
+                  *不可修改
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                餐馆名称：
+              .col-xs-3
+                = f.text_field :restaurant_name, :class=>'form-control height', :id=>'restaurant_name'
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                地址一：
+              .col-xs-4
+                = f.text_field :addr, :class=>'form-control height',:id=>'address_1_input',:rel=>"#{@addrs.length+1}"
+              .col-xs-1
+                %a#add_new_address.btn-info-1
+                  +添加地址
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                联系方式一：
+              .col-xs-3
+                = f.text_field :phone, :class=>'form-control height', :id=>'phone_1_input'
+            =form_tag 'save_address', :method=>'post' do |f|
+              - for i in (0...@addrs.length)
+                .row.login_row_1
+                  .col-xs-3.add-on-1
+                    %span
+                      地址#{i+2}:
+                  .col-xs-4
+                    = text_field_tag :"addr_address#{@addrs[i].id}",  params[:address], :class=>'form-control height',
+                     :value=>@addrs[i].address,:id=>"address_#{i+2}_input"
+                  .col-xs-1
+                    = link_to '+删除地址',delete_addr_path(:addr_id=>@addrs[i].id),:method=>'delete', :confirm=>"您确定要删除\"#{@addrs[i].address}\"？"
+                .row.login_row_1
+                  .col-xs-3.add-on-1
+                    %span
+                      联系方式#{i+2}：
+                  .col-xs-3
+                    = text_field_tag :"addr_phone#{@addrs[i].id}",  params[:phone], :class=>'form-control height',
+                      :value=>@addrs[i].phone, :id=>"phone_#{i+2}_input"
+              #add_address_after
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                Email：
+              .col-xs-3
+                = f.text_field :email, :class=>'form-control height', :id=>'email'
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                餐馆网址：
+              .col-xs-3
+                = f.text_field :href, :class=>'form-control height', :id=>'href'
+              .col-xs-7
+                %font.red
+                  *请将填写http://开头的网址　如：http://www.baidu.com
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                上传logo：
+              .col-xs-3
+                %input.form-control#show_logo_input
+                = f.file_field :logo, :class=>'form-control height', :id=>'logo_input', :style=>'display:none'
+              .col-xs-1
+                %a#overlook.btn-info-1
+                  浏览
+              .col-xs-3
+                %font.red
+                  *仅支持上传.jpg .png .gif文件
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                备注：
+              .col-xs-3
+                = f.text_area :remark, :class=>'form-control',:style=>'height:80px', :id=>'remark'
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                标签：
+              .col-xs-4#labels_content
+                - @selected_labels.each do |m|
+                  .btn.btn_2(disabled='disabled' )
+                    .h4
+                      =raw m["content"]
+              .col-xs-1
+                %a#more_labels(onclick="show_more_labels()" style="cursor:pointer;")
+                  +更多标签
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                私房菜：
+              .col-xs-3
+                =f.check_box :private_cuisine
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                外卖：
+              .col-xs-3
+                =f.check_box :outer_sell
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                点餐时间：
+
+              #datetimepicker3.input-append.col-xs-2
+
+                %input(style="width:90%;height:30px" ){"data-format" => "hh:mm:ss", :type => "text" ,:name=>'time_from'}
+                %span.add-on(style="height:30px" )
+                  %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+              .col-xs-3.add-on-info
+                －－
+              #datetimepicker4.input-append.col-xs-2
+                %input(style="width:90%;height:30px" ){"data-format" => "hh:mm:ss", :type => "text" ,:name=>'time_to'}
+                %span.add-on(style="height:30px" )
+                  %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+            .row.login_row_1
+              .col-xs-3.add-on-1
+              .col-xs-3
+                .btn-danger.active(style="text-align:center" )
+                  = flash.now[:error]
+            .row.login_row_1
+              .col-xs-1(style="margin-left:180px" )
+                = f.submit "确认", class: "btn", :id=>'submit',:onclick=>"clear_localstorage()"
+              .col-xs-1
+                = link_to '取消', merchant_index_path, :class=>'btn btn_1'
+
+
+  #label_choose.hidden.content
+    =render "label_choose_header"
+    .container#labels(rel="#{@selected_labels}" style="width:100%" )
+      .row.index_row_head
+        %a.col-xs-4.col_1.selected#site_block
+          #site.mar_top_20.cursor-pointer
+            位置类标签
+        %a.col-xs-4.col_1#dish_style_block
+          #dish_style.mar_top_20.cursor-pointer
+            菜系类标签
+        %a.col-xs-4.col_1#taste_block
+          #taste.mar_top_20.cursor-pointer
+            口味类标签
+    .label_row_1.content
+      .col-xs-2
+        %input.form-control(type="text" style="height:30px; width:90%" id="content")
+      -#.col-xs-1
+      -#  %input(type="radio" value="1" name="category" id="label_category_id1_value_rellabel_site_list") 位置类
+      .col-xs-1
+        %input(type="radio" value="2" name="category" id="label_category_id2_value_rellabel_dish_style_list") 菜系类
+      .col-xs-1
+        %input(type="radio" value="3" name="category" id="label_category_id3_value_rellabel_flavour_list") 口味类
+      .col-xs-1
+        .btn.btn-default(style="height:30px" onclick="add_new_merchant_label('#{@merchant[:user_name]}')" )
+          添加新标签
+      %br
+      .row.login_row_1.hidden(id='postcode' style="margin-top:30px" )
+        .col-xs-9(style="margin-left:15px" )
+          %input.form-control(type="text" style="height:30px; width:90%" id="postcode_input" placeholder="PostCode")
+      .col-lg-10(style="width:100%" )
+        =render 'merchant_index_label_choose'
+  =render 'show/show_footer'
+%script{:src => "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js", :type => "text/javascript"}
+%script{:src => "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js", :type => "text/javascript"}
+%script{:src => "http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js", :type => "text/javascript"}
+%script{:src => "http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js", :type => "text/javascript"}
+:javascript
+  $(function() {
+    $('#datetimepicker3').datetimepicker({
+      pickDate: false
+    });
+    $('#datetimepicker4').datetimepicker({
+          pickDate: false
+        });
+  });
+
+
+
+
+

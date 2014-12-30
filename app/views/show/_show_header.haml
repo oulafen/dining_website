@@ -1,0 +1,141 @@
+.container.home_header_container
+  .row.home_header
+    .col-xs-12
+      .sh_row_11
+        .sh_col_1
+          %a(href="/home")
+            -if @site_photo && @site_photo.photo_2.url != "/photo_2s/original/missing.png"
+              =image_tag @site_photo.photo_2.url , :style=>'width:135px; height:60px; float:right'
+      .row
+        .col-xs-1
+        .col-xs-9.sh_col_21(style="min-width:1000px ")
+          %a.home_btn_1(id='主页' href="/home" style="width: 50px;" )
+            主页
+          %a.home_btn_1(id='叉烧烤腊' onclick="set_home_label_status(this)" )
+            叉烧/烤腊
+          %a.home_btn_1(id='麻辣香锅' onclick="set_home_label_status(this)" )
+            麻辣香锅
+          %a.home_btn_1(id='卤味' onclick="set_home_label_status(this)" )
+            卤味
+          %a.home_btn_1(id='家常菜' onclick="set_home_label_status(this)" )
+            家常菜
+          %a.home_btn_1(id="主食粥类" onclick="set_home_label_status(this)" )
+            主食/粥类
+          %a.home_btn_1(id='甜点饮品' onclick="set_home_label_status(this)" )
+            甜点/饮品
+          %a.home_btn_11(id='夜宵' onclick="set_home_label_status(this)" )
+            夜宵
+            -#.sh_col_11
+        %div(style = 'position: fixed;margin-left: 80%;margin-top: 1%;')
+          -if !flash.now[:visitors]
+            %a.btn_l_1.h_btn_11(style="font-size: 17px;" data-toggle="modal" data-target="#login_modal" onclick="clear_user_login_form()" )
+              登录
+            %a.btn_l_1.h_btn_11(style="font-size: 17px;" data-toggle="modal" data-target="#register_modal" onclick="clear_user_register_form()" )
+              注册
+          -if flash.now[:visitors]
+            %span.font_size_17
+              =@visitors[:name]
+              =link_to "登出",user_logout_path,method: "delete"
+        #register_modal.modal.fade
+          .modal-dialog
+            .modal-content
+              .modal-header
+                %button.close.modal-close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4 加入我们
+              .modal-body
+                #sign-up-form.modal-login-form(style="padding: 0 50px;" onkeypress="enter_user_register(event)" )
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      用户名
+                    %input.form-control#name
+                  %br
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      密码
+                    %input.form-control#password(type="password" )
+                  %br
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      再次输入密码
+                    %input.form-control#password_confirmation(type="password" )
+                  %br
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      Email
+                    %input.form-control#email(type="email" )
+                  %br
+                  #sign_err.alert.alert-danger.hidden 用户名重复，尝试另一个！
+                  #email_err.alert.alert-danger.hidden 邮箱重复，尝试另一个！
+                  #blank_err.alert.alert-danger.hidden 请将注册信息填写完整！
+                  #confirm_err.alert.alert-danger.hidden 密码输入不一致！
+                  #format_err.alert.alert-danger.hidden 邮箱格式不正确！
+                  %br
+                  %button.btn-local#user_register(onclick="post_new_user()" )
+                    注册
+        #login_modal.modal.fade
+          .modal-dialog
+            .modal-content
+              .modal-header
+                %button.close.modal-close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4 欢迎回来
+              .modal-body
+                #login-form.modal-login-form(style="padding: 0 50px;" onkeypress="enter_user_login(event)" )
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      用户名
+                    %input.form-control#login_name
+                  %br
+                  .input-group(style="width:100%" )
+                    %span.input-group-addon(style="width:25%" )
+                      密码
+                    %input.form-control#login_password(type="password" )
+                  %br
+                  #err
+                  %br
+                  %button.btn-local#user_login(onclick="user_login()" )
+                    登录
+                  %a.cursor-pointer(style="margin-left:20px" href="/forget_password" )
+                    忘记密码
+  .modal.fade#mail_form
+    .modal-dialog
+      .modal-content
+        .modal-header
+          .btn.close(data-dismiss="modal" )
+            &times;
+          .modal-title
+            %h4
+              您想开店吗？编辑邮件发给我就ok了
+        .modal-body
+          %p
+            To:
+            %input.form-control#mail_to(placeholder="info@eatparadise.com.au" disabled ="disabled" rel="info@eatparadise.com.au" )
+          %p
+            Your Full Name:
+            %input.form-control#mailer_name
+            #nameMsg
+          %p
+            Your Restaurant Name:
+            %input.form-control#mailer_restaurant_name
+            #restaurantMsg
+          %p
+            Your Mobile Number:
+            %input.form-control#mailer_phone
+            #phoneMsg
+          %p
+            Your Email:
+            %input.form-control#mailer_email
+            #emailMsg
+          %p
+            Content:
+            %textarea.form-control#mailer_content.height-100
+        .modal-footer
+          %h4#send_success.hidden.text-left
+            邮件发送成功
+          .btn(onclick="Submit Review()" )
+            发送
+          .btn(onclick="hide_mail_form()" )
+            取消
+
+
+
+

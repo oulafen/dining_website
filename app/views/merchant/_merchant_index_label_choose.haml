@@ -1,0 +1,169 @@
+.sort_paginate_ajax#sort_paginate_ajax
+  #site_labels
+    .row.login_row_1
+      %table.table.table-striped.merchant_label_border(style="text-align:center")
+        %thead
+          %tr
+            %td
+              序号
+            %td
+              标签内容
+            %td
+              类别
+            %td
+              操作
+            %td
+              序号
+            %td
+              标签内容
+            %td
+              类别
+            %td
+              操作
+        %tbody
+          - site_num = 0
+          - while site_num< @site_labels.length
+            %tr
+              %td
+                =site_num +1
+              %td
+                %div(id="content#{@site_labels[site_num].id}")
+                  =raw @site_labels[site_num][:content]
+              %td
+                = @site_labels[site_num][:category]
+              %td
+                %a(id="add#{@site_labels[site_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                  添加
+                %a(id="cancel#{@site_labels[site_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                  删除
+                - site_num+=1
+              - if site_num< @site_labels.length
+                %td
+                  =site_num +1
+                %td
+                  %div(id="content#{@site_labels[site_num].id}")
+                    =raw @site_labels[site_num][:content]
+                %td
+                  = @site_labels[site_num][:category]
+                %td
+                  %a(id="add#{@site_labels[site_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                    添加
+                  %a(id="cancel#{@site_labels[site_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                    删除
+                - site_num+=1
+      .row.login_row_1
+        .modal-footer#site_paginate(style="margin:0px 0px; padding:0px 0px" )
+          = will_paginate @site_labels,:previous_label=>'<<',:next_label=>'>>'
+
+  #dish_style_labels.hidden
+    #dish_style_labels_show
+      .row.login_row_1
+        %table.table.table-striped.merchant_label_border(style="text-align:center")
+          %thead
+            %tr
+              %td
+                序号
+              %td
+                标签内容
+              %td
+                类别
+              %td
+                操作
+              %td
+                序号
+              %td
+                标签内容
+              %td
+                类别
+              %td
+                操作
+          %tbody
+            - dish_style_num = 0
+            - while dish_style_num< @dish_style_labels.length
+              %tr
+                %td
+                  =dish_style_num +1
+                %td
+                  %div(id="content#{@dish_style_labels[dish_style_num].id}")
+                    =raw @dish_style_labels[dish_style_num][:content]
+                %td
+                  =@dish_style_labels[dish_style_num][:category]
+                %td
+                  %a(id="add#{@dish_style_labels[dish_style_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                    添加
+                  %a(id="cancel#{@dish_style_labels[dish_style_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                    删除
+                  - dish_style_num+=1
+                - if dish_style_num< @dish_style_labels.length
+                  %td
+                    =dish_style_num +1
+                  %td
+                    %div(id="content#{@dish_style_labels[dish_style_num].id}")
+                      =raw @dish_style_labels[dish_style_num][:content]
+                  %td
+                    =@dish_style_labels[dish_style_num][:category]
+                  %td
+                    %a(id="add#{@dish_style_labels[dish_style_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                      添加
+                    %a(id="cancel#{@dish_style_labels[dish_style_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                      删除
+                    - dish_style_num+=1
+        .row.login_row_1
+          .modal-footer#dish_style_paginate(style="margin:0px 0px; padding:0px 0px" )
+            = will_paginate @dish_style_labels,:previous_label=>'<<',:next_label=>'>>'
+  #taste_labels.hidden
+    #taste_labels_show
+      .row.login_row_1
+        %table.table.table-striped.merchant_label_border(style="text-align:center")
+          %thead
+            %tr
+              %td
+                序号
+              %td
+                标签内容
+              %td
+                类别
+              %td
+                操作
+              %td
+                序号
+              %td
+                标签内容
+              %td
+                类别
+              %td
+                操作
+          %tbody
+            - taste_num = 0
+            - while taste_num < @taste_labels.length
+              %tr
+                %td
+                  =taste_num +1
+                %td
+                  %div(id="content#{@taste_labels[taste_num].id}")
+                    =raw @taste_labels[taste_num][:content]
+                %td
+                  =@taste_labels[taste_num][:category]
+                %td
+                  %a(id="add#{@taste_labels[taste_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                    添加
+                  %a(id="cancel#{@taste_labels[taste_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                    删除
+                  - taste_num+=1
+                - if taste_num < @taste_labels.length
+                  %td
+                    =taste_num +1
+                  %td
+                    %div(id="content#{@taste_labels[taste_num].id}")
+                      =raw @taste_labels[taste_num][:content]
+                  %td
+                    =@taste_labels[taste_num][:category]
+                  %td
+                    %a(id="add#{@taste_labels[taste_num].id}" onclick="change(this)" style="cursor:pointer; color:#2828FF" )
+                      添加
+                    %a(id="cancel#{@taste_labels[taste_num].id}" onclick="change(this)" disabled='disabled' style="cursor:pointer; color:#8E8E8E")
+                      删除
+                    - taste_num+=1
+        .row.login_row_1
+          .modal-footer#taste_paginate(style="margin:0px 0px; padding:0px 0px" )
+            = will_paginate @taste_labels,:previous_label=>'<<',:next_label=>'>>'

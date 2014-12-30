@@ -1,0 +1,78 @@
+%body(background=@bg)
+  %script(lang="javascript" src="/javascripts/show/all_site_labels.js")
+
+  =render 'show/show_header'
+  .container.home_container
+    .row.h_row_1
+      .row.h_row_3.margin-top-20
+        .col-xs-12.h_col_2
+          %font.h_font_1
+            查看餐厅
+      .row
+        .col-xs-2
+        .col-xs-9(style="padding:0" )
+          - i = 0
+          - while i< @labels_restaurants.length
+            .row.home_row_1(style="margin-left:-22px" )
+              .col-xs-3.h_col_4
+                .row.h_row_4(onclick="show_restaurant_list(this)" rel="#{@labels_restaurants[i][:content]}" name="#{@labels_restaurants[i][:restaurant_num]}")
+                  .col-xs-6.no_padding.width-94(data-toggle="tooltip" data-placement="bottom" title="#{@labels_restaurants[i][:original_content]}")
+                    -if @labels_restaurants[i][:site].length>8
+                      .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                        =raw(@labels_restaurants[i][:short_site_html]) +"..."
+                    -if @labels_restaurants[i][:site].length<9
+                      .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                        =raw @labels_restaurants[i][:site_html]
+                  .col-xs-6.no_padding.width-74
+                    .font_div_2
+                      =@labels_restaurants[i][:restaurant_num]
+                      家餐厅
+                  - i+=1
+              .col-xs-3.h_col_5
+                - if i<@labels_restaurants.length
+                  .row.h_row_5(onclick="show_restaurant_list(this)" rel="#{@labels_restaurants[i][:content]}" name="#{@labels_restaurants[i][:restaurant_num]}")
+                    .col-xs-6.no_padding.width-94(data-toggle="tooltip" data-placement="bottom" title="#{@labels_restaurants[i][:original_content]}")
+                      -if @labels_restaurants[i][:site].length>8
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw(@labels_restaurants[i][:short_site_html]) +"..."
+                      -if @labels_restaurants[i][:site].length<9
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw @labels_restaurants[i][:site_html]
+                    .col-xs-6.no_padding.width-74
+                      .font_div_2
+                        =@labels_restaurants[i][:restaurant_num]
+                        家餐厅
+                    - i+=1
+
+              .col-xs-3.h_col_5
+                - if i<@labels_restaurants.length
+                  .row.h_row_5(onclick="show_restaurant_list(this)" rel="#{@labels_restaurants[i][:content]}" name="#{@labels_restaurants[i][:restaurant_num]}")
+                    .col-xs-6.no_padding.width-94(data-toggle="tooltip" data-placement="bottom" title="#{@labels_restaurants[i][:original_content]}")
+                      -if @labels_restaurants[i][:site].length>8
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw(@labels_restaurants[i][:short_site_html]) +"..."
+                      -if @labels_restaurants[i][:site].length<9
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw @labels_restaurants[i][:site_html]
+                    .col-xs-6.no_padding.width-74
+                      .font_div_2
+                        =@labels_restaurants[i][:restaurant_num]
+                        家餐厅
+                    - i+=1
+              .col-xs-3.h_col_6
+                - if i<@labels_restaurants.length
+                  .row.h_row_5(onclick="show_restaurant_list(this)" rel="#{@labels_restaurants[i][:content]}" name="#{@labels_restaurants[i][:restaurant_num]}")
+                    .col-xs-6.no_padding.width-94(data-toggle="tooltip" data-placement="bottom" title="#{@labels_restaurants[i][:original_content]}")
+                      -if @labels_restaurants[i][:site].length>8
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw(@labels_restaurants[i][:short_site_html]) +"..."
+                      -if @labels_restaurants[i][:site].length<9
+                        .font_div_1(name="label_hover" id="#{@labels_restaurants[i][:content]}")
+                          =raw @labels_restaurants[i][:site_html]
+                    .col-xs-6.no_padding.width-74
+                      .font_div_2
+                        =@labels_restaurants[i][:restaurant_num]
+                        家餐厅
+                    - i+=1
+
+  =render 'show/show_footer'

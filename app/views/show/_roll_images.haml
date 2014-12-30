@@ -1,0 +1,10 @@
+#banner
+  %ul
+    - num = 1
+    - @roll_images.each do |r|
+      %li(rel="#{num}")
+      - num+=1
+  #banner_list
+    -@roll_images.each do |roll_image|
+      %a(target="_blank")
+        = image_tag roll_image, :style=>'width:700px; height:200px'

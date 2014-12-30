@@ -1,0 +1,31 @@
+%body
+  %script(lang="javascript" src="/javascripts/admin/admin_index.js")
+  =render 'admin/admin_header'
+  .container.content(style="width:100%; " )
+    .row.index_row_head
+      .col-xs-4.col_1.selected
+        .mar_top_20
+          餐馆管理
+      .col-xs-4.col_1
+        .mar_top_20
+          =link_to '标签管理',label_site_list_path
+      .col-xs-4.col_1
+        .mar_top_20
+          =link_to '图片管理', roll_images_manager_path
+    .row
+      .col-xs-2
+        .row.label_row_2.selected#checked_block
+          .col-xs-12
+            %a.cursor-pointer#checked.label_block_clicked
+              已验证餐馆
+        .row.label_row_2#checking_block
+          .col-xs-12
+            %a.cursor-pointer#checking
+              待验证餐馆
+      .col-xs-10
+        .row.label_row_1
+          =link_to '添加新餐馆', add_new_merchant_path, :class=>'btn', :style=>'background-color:#E0E0E0;margin-left: 20px;'
+          =render 'admin/merchant_manage_list'
+  =render 'show/show_footer'
+:javascript
+  set_switch_in_admin_index()

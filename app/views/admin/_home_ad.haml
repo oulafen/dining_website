@@ -1,0 +1,157 @@
+.row
+  =form_for :home_ad, :url=>'process_home_ad', :method=>'post'  do |f|
+    .col-xs-4
+      .col-xs-2
+        = f.submit "保存", class: "btn", style:'width:50px'
+      .col-xs-2
+        = link_to '取消', set_home_ad_path, :class=>'btn btn_1'
+    .row.col-xs-12
+      .col-xs-6
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片一：
+          .col-xs-7
+            %input.form-control#show_logo_input_1
+            = f.file_field :photo_1, :class=>'form-control', :id=>'logo_input_1', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_1
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片二：
+          .col-xs-7
+            %input.form-control#show_logo_input_2
+            = f.file_field :photo_2, :class=>'form-control', :id=>'logo_input_2', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_2
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片三：
+          .col-xs-7
+            %input.form-control#show_logo_input_3
+            = f.file_field :photo_3, :class=>'form-control', :id=>'logo_input_3', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_3
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片四：
+          .col-xs-7
+            %input.form-control#show_logo_input_4
+            = f.file_field :photo_4, :class=>'form-control', :id=>'logo_input_4', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_4
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片五：
+          .col-xs-7
+            %input.form-control#show_logo_input_5
+            = f.file_field :photo_5, :class=>'form-control', :id=>'logo_input_5', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_5
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片六：
+          .col-xs-7
+            %input.form-control#show_logo_input_6
+            = f.file_field :photo_6, :class=>'form-control', :id=>'logo_input_6', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_6
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片七：
+          .col-xs-7
+            %input.form-control#show_logo_input_7
+            = f.file_field :photo_7, :class=>'form-control', :id=>'logo_input_7', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_7
+              上传图片
+        .row.login_row_1
+          .col-xs-2.padding-top-8
+            图片八：
+          .col-xs-7
+            %input.form-control#show_logo_input_8
+            = f.file_field :photo_8, :class=>'form-control', :id=>'logo_input_8', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_8
+              上传图片
+      .col-xs-6
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片九：
+          .col-xs-7
+            %input.form-control#show_logo_input_9
+            = f.file_field :photo_9, :class=>'form-control', :id=>'logo_input_9', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_9
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十：
+          .col-xs-7
+            %input.form-control#show_logo_input_10
+            = f.file_field :photo_10, :class=>'form-control', :id=>'logo_input_10', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_10
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十一：
+          .col-xs-7
+            %input.form-control#show_logo_input_11
+            = f.file_field :photo_11, :class=>'form-control', :id=>'logo_input_11', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_11
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十二：
+          .col-xs-7
+            %input.form-control#show_logo_input_12
+            = f.file_field :photo_12, :class=>'form-control', :id=>'logo_input_12', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_12
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十三：
+          .col-xs-7
+            %input.form-control#show_logo_input_13
+            = f.file_field :photo_13, :class=>'form-control', :id=>'logo_input_13', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_13
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十四：
+          .col-xs-7
+            %input.form-control#show_logo_input_14
+            = f.file_field :photo_14, :class=>'form-control', :id=>'logo_input_14', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_14
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十五：
+          .col-xs-7
+            %input.form-control#show_logo_input_15
+            = f.file_field :photo_15, :class=>'form-control', :id=>'logo_input_15', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_15
+              上传图片
+        .row.login_row_1
+          .col-xs-3.padding-top-8
+            图片十六：
+          .col-xs-7
+            %input.form-control#show_logo_input_16
+            = f.file_field :photo_16, :class=>'form-control', :id=>'logo_input_16', :style=>'display:none'
+          .col-xs-2
+            %a.btn#overlook_16
+              上传图片
+      .row.login_row_3
+        -if session[:success]=='true'
+          =render 'admin/update_home_ad_success'

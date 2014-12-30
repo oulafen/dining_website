@@ -1,0 +1,52 @@
+.row.label_row_1
+  =form_for :label, :url=>"save_new_label", :method=>'post' do |f|
+    .col-xs-2
+      = f.text_field :content ,:class=>'form-control', :style=>'height:30px; width:170px'
+    .col-xs-1
+      = f.radio_button :category ,:id=>1, :value=> "位置类", :rel=>"label_site_list"
+      %span 位置类
+    .col-xs-1
+      = f.radio_button :category ,:id=>2, :value=>"菜系类", :rel=>"label_dish_style_list"
+      %span 菜系类
+    .col-xs-1
+      = f.radio_button :category ,:id=>3, :value=>"口味类", :rel=>"label_flavour_list"
+      %span 口味类
+    .col-xs-1
+      = f.submit '添加新标签', :class=>'btn',:style=>'height:30px'
+    .col-xs-2
+      %font(style='color:red')
+        =flash.now[:repeat_error]
+    %br
+    .row.login_row_1.hidden(id='postcode' style="margin-top:30px" )
+      .col-xs-9(style="margin-left:15px;" )
+        = f.text_field :postcode ,:class=>'form-control', :style=>'height:30px; width:170px',:placeholder=>"PostCode"
+.row.label_row_1
+  %table.table.table-striped(style="text-align:center" )
+    %thead
+      %tr
+        %td
+          序号
+        %td
+          标签内容
+        %td
+          类别
+        %td
+          操作
+        %td
+    %tbody
+      - num = 0
+      -@label_list.each do |label|
+        %tr
+          %td
+            = num+1
+          %td
+            =raw label[:content]
+          %td
+            = label[:category]
+          %td
+            %a.cursor-pointer(onclick="delete_label(this)" id="#{label.id}" rel="#{label[:content].gsub('&nbsp;',' ')}" name="#{label[:category]}")
+              删除
+          - num+=1
+
+  .modal-footer
+    = will_paginate @label_list,:previous_label=>'<<',:next_label=>'>>'

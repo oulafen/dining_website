@@ -1,0 +1,169 @@
+%body(background=@bg)
+  %script(lang="javascript" src="/javascripts/show/restaurant_detail.js")
+
+  =render 'show/show_header'
+  .container.home_container.content
+    .row.h_row_1
+      .col-xs-12(style="margin-left:50px;padding-right:100px" )
+        .row.home_row_1
+          .col-xs-12.rd_col_1
+            %a.cursor-pointer(id="#{@label_content}" name="#{@category}" onclick="set_home_label_status(this)" )
+              =@label_content
+            &nbsp>>&nbsp
+            = @merchant.restaurant_name
+        .row.home_row_1.margin-top-20
+          .col-xs-2.rd_col_2
+            -if @merchant.logo.url!='/logos/original/missing.png'
+              =image_tag @merchant.logo.url(:small),:style=>'width:50px; height:50px'
+            -if @merchant.logo.url=='/logos/original/missing.png'
+              =image_tag 'default_picture50.PNG'
+          .col-xs-4.no_padding
+            %div.rd_restaurant_name_1#merchant_favors_info(rel="#{@merchant_favors}" )
+              %span(style="float:left")
+                =@merchant.restaurant_name
+              %span(style="float:left;margin-left:10px")
+                -if @merchant["private_cuisine"]==1
+                  =image_tag 'private_cuisine.jpg'
+                -if @merchant["outer_sell"]==1
+                  =image_tag 'outer_sell.JPG'
+              -if !flash.now[:visitors]
+                #test(style="float:left;margin-left:10px")
+                  #test_in
+                    &nbsp;&nbsp;
+                    #test_out(style="float:left")
+                      =image_tag 'h.jpg'
+                    %span
+                    =@favor_num
+                    人喜欢
+              -if flash.now[:visitors]
+                #favor.hidden(style="float:left;margin-left:10px")
+                  #favor_block
+                    &nbsp;&nbsp;
+                    #favor_pic(onclick="not_ever_favor(#{@visitors[:id]},#{@merchant[:id]})" style="float:left" class="cursor-pointer" )
+                      =image_tag 'h.jpg'
+                    =@favor_num
+                    人喜欢
+                #not_favor.hidden(style="float:left;margin-left:10px")
+                  #not_favor_block
+                    &nbsp;&nbsp;
+                    #not_favor_pic(onclick="favor_it(#{@visitors[:id]},#{@merchant[:id]})" style="float:left" class="cursor-pointer" )
+                      =image_tag 'y.jpg'
+                    =@favor_num
+                    人喜欢
+            -if !@merchant.addr.empty?
+              .clearfix
+                %div.rd_addr
+                  地址
+                  一
+                  \：
+                  =@merchant.addr
+            -if @merchant.addr.empty? &&!@merchant.phone.empty?
+              %div.rd_addr
+                电话
+                一
+                \：
+                =@merchant.phone
+            -if !@merchant.addr.empty? && !@merchant.phone.empty?
+              .clearfix
+                %div.rd_phone
+                  电话
+                  一
+                  \：
+                  =@merchant.phone
+            -if @other_addrs
+              .rd_phone
+                - addr_num=2
+                -@other_addrs.each do |addr|
+                  地址
+                  %span(id="addr#{addr_num}" )
+                    =addr_num
+                  \：
+                  =addr[:address]
+                  %br
+                  电话
+                  %span(id="phone#{addr_num}" )
+                    =addr_num
+                  \：
+                  =addr[:phone]
+                  %br
+                  -addr_num +=1
+            -if !@merchant.remark.empty?
+              %div.col-xs-4.no_padding(style="width:100%!important" )
+                %span.rd_phone
+                  备注：
+                  =raw @merchant.remark
+            -if @merchant.href&&!@merchant.href.empty?
+              %div.col-xs-4.no_padding(style="width:100%!important;margin-top:10px" )
+                %a(href="#{@merchant.href}")
+                  餐馆链接
+          .col-xs-5(style="margin-left: 60px;margin-top: -57px;" )
+            .col-xs-4.rd_col_3
+              %input.restaurant_search_input#restaurant_detail_input(placeholder="请输入菜品名称" )
+            .col-xs-1.rd_col_4
+              .detail_source_btn#restaurant_detail_search(onclick="restaurant_detail_search(this)" rel="#{@dishes_names_by_group}" style="margin-top:0px" )
+                搜索
+        - id_num = 0
+        - @dishes_by_group.each do |d|
+          -if !d[:dish_by_group].empty?
+            .row.home_row_1
+              .row.rd_row_1(id="show#{d[:label_content].gsub(/(\/)/,'')}")
+                %span.label_font
+                  =d[:label_content]
+              - d[:dish_by_group].each do |key,g|
+                -id_num+=1
+                .row.rd_row_21(id="show#{d[:label_content].gsub(/(\/)/,'')+key.name}"  )
+                  .col-xs-2.rd_col_5
+                    -if key.photo.url!='/photos/original/missing.png'
+                      =image_tag key.photo.url(:small),:style=>'width:50px; height:50px',:name=>'image_hover',:id=>"#{id_num}"
+                    -if key.photo.url=='/photos/original/missing.png'
+                      = image_tag 'default_picture.png',:name=>'image_hover',:style=>'margin-left:10px',:id=>"#{id_num}"
+                  .col-xs-1.rd_col_6
+                    = key.name
+                  .col-xs-1.rd_col_7
+                    = key.price
+                    元/份
+                  .col-xs-2.rd_col_7
+                    =raw key.remark.gsub(/\r\n/,'<br>')
+                  = image_tag key.photo.url(:original), :rel=>"#{key.photo.url(:original)}",:class=>'hidden rd_hover_image',:id=>"image_show#{id_num}"
+        #jump_top(style="margin-bottom:60px" )
+        .col-xs-12.comment_container
+          %span.comment_position
+            用户评论:
+        - @comments.each do |c|
+          .row.home_row_1.comment
+            .col-xs-12.rd_col_12
+              %span
+                用户：
+              = c.user_name
+              %sapn.time
+                =c.created_at
+              .col-xs-12.rd_col_12(style="white-space:normal; display:block;word-break: break-all;" )
+                =raw c.comment
+
+        .row.home_row_1
+          .col-xs-12.rd_col_1
+            我想说：
+            %textarea#comment.textarea_container
+        -if @visitors
+          %button.btn(onclick="submit_review(this)" rel="#{@visitors[:name]}" rel1="#{@merchant.restaurant_name}" )
+            提交评论
+        -else
+          %button.btn(onclick="submit_review(this)" style="margin-left:15px" )
+            提交评论
+        %a#jump(href="#jump_top")
+
+  =render 'show/show_footer'
+
+:javascript
+  var addrs =jQuery('[id^="addr"]')
+  for (var i = 0; i < addrs.length; i++) {
+      var num = addrs[i].innerText.replace(/[^0-9]/ig, "");
+      var chinese_num = NumToChinese(num);
+      addrs[i].innerText = chinese_num
+  }
+  var phones =jQuery('[id^="phone"]')
+  for (var i = 0; i < phones.length; i++) {
+      var num = phones[i].innerText.replace(/[^0-9]/ig, "");
+      var chinese_num = NumToChinese(num);
+      phones[i].innerText = chinese_num
+  }

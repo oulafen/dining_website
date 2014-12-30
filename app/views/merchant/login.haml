@@ -1,0 +1,28 @@
+%body
+  =render 'layouts/header_image'
+  .container.content
+    .row
+      .col-xs-12.login_div
+        =form_for :user, url:create_login_session_path, method:'post' do |f|
+          .row.login_row_1
+            //.col-xs-offset-1
+            %h4(style="text-align:center;margin-left:-40px" )
+              后台管理系统登录
+          .row.login_row_1
+            .col-xs-3.add-on-1
+              用户名
+            .col-xs-9
+              = f.text_field :user_name, :class=>"form-control wid-400"
+          .row.login_row_1
+            .col-xs-3.add-on-1
+              密码
+            .col-xs-9
+              = f.text_field :password, :type=>"password", :class=>"form-control wid-400"
+          .row.login_row_2
+            .col-xs-10
+              .btn-danger.active.wid-500
+                =flash.now[:error]
+          .row.login_row_3
+            .col-xs-12
+              = f.submit "登   录", class: "btn", style:'width:150px'
+  =render 'show/show_footer'

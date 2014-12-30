@@ -1,0 +1,41 @@
+%script(lang="javascript" src="/javascripts/show/register_merchant.js" )
+%body(background=@bg)
+  =render 'layouts/header_image'
+  .form(onkeypress="enter_user_register(event)" )
+    .text-left
+      %h4 商家注册
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        用户名
+      %input.form-control#user_name
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        餐馆名称
+      %input.form-control#restaurant_name
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        密码
+      %input.form-control#password(type="password" )
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        再次输入密码
+      %input.form-control#password_confirmation(type="password" )
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        Email
+      %input.form-control#email
+    %br
+    .input-group(style="width:100%" )
+      %span.input-group-addon(style="width:25%" )
+        联系电话
+      %input.form-control#phone
+    %br
+    #err
+    %br
+    %button.btn-local#user_register(onclick="check_merchant_info()" )
+      注册

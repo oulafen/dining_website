@@ -1,0 +1,44 @@
+%body
+  =render 'merchant/merchant_header'
+  .container.content(style="width:100%" )
+    .row.index_row_head
+      .col-xs-6.col_1
+        .mar_top_20
+          =link_to '基本信息', merchant_index_path
+      .col-xs-6.col_1.selected
+        .mar_top_20
+          菜品管理
+    .row
+      .col-xs-12
+        .row(style="margin:10px 0px 0px 60px" )
+          .col-xs-2
+            =link_to '添加新菜品', add_new_dish_path, :class=>'btn', :style=>'background-color:#E0E0E0'
+        .modal-body
+          %table.table.table-striped(style="text-align:center" )
+            %thead
+              %tr
+                %td
+                  序号
+                %td
+                  菜名
+                %td
+                  价格
+                %td
+                  操作
+            %tbody
+              - num=0
+              - @dishes.each do |d|
+                - num += 1
+                %tr
+                  %td
+                    = num
+                  %td
+                    = d[:name]
+                  %td
+                    = d[:price]
+                  %td
+                    =link_to '修改', save_modify_dish_id_path(:id=>d[:id])
+                    =link_to '删除', delete_dish_path(:id => d[:id]), :method => :delete, :confirm=>"您确定要删除\"#{d[:name]}\"？"
+        .modal-footer
+          = will_paginate @dishes,:previous_label=>'<<',:next_label=>'>>'
+  =render 'show/show_footer'

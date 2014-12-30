@@ -1,0 +1,82 @@
+.row.roll_row_1
+  .col-xs-12
+    =form_for :roll_image, :url=>'process_roll_images', :method=>'post'  do |f|
+      .row.login_row_1
+        .col-xs-2.padding-top-8
+          图片一：
+        .col-xs-8
+          %input.form-control#show_logo_input_1
+          = f.file_field :photo_1, :class=>'form-control', :id=>'logo_input_1', :style=>'display:none'
+        .col-xs-2
+          %a.btn#overlook_1
+            上传图片
+      .row.login_row_1
+        .col-xs-2.padding-top-8
+          图片二：
+        .col-xs-8
+          %input.form-control#show_logo_input_2
+          = f.file_field :photo_2, :class=>'form-control', :id=>'logo_input_2', :style=>'display:none'
+        .col-xs-2
+          %a.btn#overlook_2
+            上传图片
+      .row.login_row_1
+        .col-xs-2.padding-top-8
+          图片三：
+        .col-xs-8
+          %input.form-control#show_logo_input_3
+          = f.file_field :photo_3, :class=>'form-control', :id=>'logo_input_3', :style=>'display:none'
+        .col-xs-2
+          %a.btn#overlook_3
+            上传图片
+      .row.login_row_1
+        .col-xs-2.padding-top-8
+          图片四：
+        .col-xs-8
+          %input.form-control#show_logo_input_4
+          = f.file_field :photo_4, :class=>'form-control', :id=>'logo_input_4', :style=>'display:none'
+        .col-xs-2
+          %a.btn#overlook_4
+            上传图片
+      .row.login_row_1
+        .col-xs-2.padding-top-8
+          图片五：
+        .col-xs-8
+          %input.form-control#show_logo_input_5
+          = f.file_field :photo_5, :class=>'form-control', :id=>'logo_input_5', :style=>'display:none'
+        .col-xs-2
+          %a.btn#overlook_5
+            上传图片
+      .row.login_row_3
+        .col-xs-3
+          = f.submit "保存", class: "btn", style:'width:50px'
+        .col-xs-1
+          = link_to '取消', roll_images_manager_path, :class=>'btn btn_1'
+      .row.login_row_3
+        -if session[:success]=='true'
+          =render 'admin/update_roll_image_success'
+.row.roll_row_2
+  .col-xs-3.width-200
+    -if @show_roll_image && @show_roll_image.photo_1.url(:small) != "/photo_1s/small/missing.png"
+      =image_tag @show_roll_image.photo_1.url(:small), :style=>"width:150px"
+      %a.cursor-pointer.X_mark(onclick="delete_roll_image(this)" rel="1" )
+        &times
+  .col-xs-2.width-200
+    -if @show_roll_image && @show_roll_image.photo_2.url(:small) != "/photo_2s/small/missing.png"
+      =image_tag @show_roll_image.photo_2.url(:small), :style=>"width:150px"
+      %a.cursor-pointer.X_mark(onclick="delete_roll_image(this)" rel="2" )
+        &times
+  .col-xs-2.width-200
+    -if @show_roll_image && @show_roll_image.photo_3.url(:small) != "/photo_3s/small/missing.png"
+      =image_tag @show_roll_image.photo_3.url(:small), :style=>"width:150px"
+      %a.cursor-pointer.X_mark(onclick="delete_roll_image(this)" rel="3" )
+        &times
+  .col-xs-2.width-200
+    -if @show_roll_image && @show_roll_image.photo_4.url(:small) != "/photo_4s/small/missing.png"
+      =image_tag @show_roll_image.photo_4.url(:small), :style=>"width:150px"
+      %a.cursor-pointer.X_mark(onclick="delete_roll_image(this)" rel="4" )
+        &times
+  .col-xs-3.width-200
+    -if @show_roll_image && @show_roll_image.photo_5.url(:small) != "/photo_5s/small/missing.png"
+      =image_tag @show_roll_image.photo_5.url(:small), :style=>"width:150px"
+      %a.cursor-pointer.X_mark(onclick="delete_roll_image(this)" rel="5" )
+        &times

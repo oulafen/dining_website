@@ -1,0 +1,13 @@
+=render 'layouts/header_image'
+.left-1(style="font-size:20px" )
+  标签选择
+=render 'layouts/header_logout'
+
+.container
+  .row.merchant_label_row_1
+    .col-xs-1
+      %a.btn.btn_3(onclick= "label_choose_submit()" )
+        确认
+    .col-xs-1
+      %a.btn.btn_3( onclick= "cancel_more_labels()")
+        取消

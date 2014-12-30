@@ -1,0 +1,31 @@
+zh-CN:
+  activerecord:
+    attributes:
+      merchant:
+        user_name: ""
+        restaurant_name: ""
+        password: ""
+        password_confirmation: ""
+        password_digest: ""
+        email: ""
+        phone: ""
+    errors:
+      models:
+        merchant:
+          attributes:
+            user_name:
+              blank: "请将注册信息填写完整"
+              taken: "该用户名已注册"
+            restaurant_name:
+              blank: "请将注册信息填写完整"
+            password:
+              blank: "请将注册信息填写完整"
+            password_confirmation:
+              confirmation: "两次密码输入不一致，请重新输入"
+            password_digest:
+              blank: "请将注册信息填写完整"
+            email:
+              invalid: "邮箱地址格式不正确"
+              blank: "请将注册信息填写完整"
+            phone:
+              blank: "请将注册信息填写完整"

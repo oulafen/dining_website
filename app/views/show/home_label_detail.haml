@@ -1,0 +1,68 @@
+%body(background=@bg)
+  %script(lang="javascript" src="/javascripts/show/home_label_detail.js")
+
+  =render 'show/show_header'
+  .container.home_container.content
+    .row.show_box
+      .row.hld_row_1
+        .col-xs-5.label_detail_font_1#label_content(style="margin-left:50px" )
+          - if !@merchant_detail.empty?
+            =@label_content
+        .col-xs-5.no_padding.text-right
+          %input.detail_source_input#home_label_detail_input( placeholder="请输入餐馆名称或菜品名称" )
+        .col-xs-1.no_padding.width-60
+          .detail_source_btn#home_label_detail_search(onclick="home_label_detail_search(this)" style="margin-top:20px" rel="#{@merchants}")
+            搜索
+      - if @merchant_detail.empty?
+        .row.home_row_1
+          .col-xs-12.hld_col_1(style="margin-left:90px" )
+            抱歉，没有找到您相关的搜索结果
+      - if !@merchant_detail.empty?
+        -@infos.each do |info|
+          .row
+            .col-xs-1
+            .col-xs-10
+              .label_detail_font_1
+                =info["site"]
+              %hr.home_detail_line_1
+              -info["merchant"].each do |merchant|
+                .row.home_detail_line_2(id="#{merchant["restaurant_name"]}+#{info["site"]}")
+                  .col-xs-4.hld_col_21
+                    -if merchant["logo"].url != '/logos/original/missing.png'
+                      = image_tag merchant["logo"].url(:small),:class=>'sq_30'
+                    -if merchant["logo"].url == '/logos/original/missing.png'
+                      = image_tag 'default_picture.png',:class=>'sq_30'
+                    = link_to "#{merchant["restaurant_name"]}",restaurant_detail_path(:label_content=>@label_content,:merchant_id=>merchant["id"]), :style=>'color:#fb9f2e'
+                    -if merchant["private_cuisine"]==1
+                      &nbsp;
+                      =image_tag 'private_cuisine.jpg'
+                  .col-xs-4.hld_col_21
+                    = image_tag 'old-telephone.png'
+                    %span(style="margin-left:12px" )
+                      =merchant["phone"]
+                  .col-xs-4.hld_col_31
+                    = link_to '看菜谱',restaurant_detail_path(:label_content=>@label_content,:merchant_id=>merchant["id"]),:class=>'dish_btn'
+            .col-xs-1
+
+  =render 'show/show_footer'
+-#:javascript
+-#  function home_label_detail_search() {
+-#      $('#home_label_detail_search').click(function () {
+-#          var input = $('#home_label_detail_input').val();
+-#          var merchants = JSON.parse($(this).attr('rel').replace(/=>/g, ':'));
+-#          for (var i = 0; i < merchants.length; i++) {
+-#              var restaurant_name = merchants[i]["restaurant_name"];
+-#              $("div[id^=" + restaurant_name +"]").addClass('hidden')
+-#              var find_dish = false;
+-#              for (var j = 0; j < merchants[i]["dish"].length; j++) {
+-#                  var dish_name = merchants[i]["dish"][j]["dish_name"];
+-#                  if (dish_name.match(input)) {
+-#                      find_dish = true
+-#                  }
+-#              }
+-#              if (restaurant_name.match(input) || find_dish) {
+-#                  $("div[id^=" + restaurant_name +"]").removeClass('hidden')
+-#              }
+-#          }
+-#      })
+-#  }

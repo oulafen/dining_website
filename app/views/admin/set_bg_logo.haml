@@ -1,0 +1,65 @@
+%body
+  %script(lang="javascript" src="/javascripts/admin/set_site_photo.js")
+  =render 'admin/admin_header'
+  .container.content(style="width:100%" )
+    .row.index_row_head
+      .col-xs-4.col_1
+        .mar_top_20
+          = link_to '餐馆管理',admin_index_path
+      .col-xs-4.col_1
+        .mar_top_20
+          = link_to '标签管理', label_site_list_path
+      .col-xs-4.col_1.selected
+        .mar_top_20
+          图片管理
+    .row
+      .col-xs-2
+        .row.label_row_2
+          .col-xs-12
+            =link_to '首页轮播图', roll_images_manager_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '首页广告位图', set_home_ad_path
+        .row.label_row_2.selected
+          .col-xs-12
+            背景及logo图
+        .row.label_row_2
+          .col-xs-12
+            =link_to '"关于我们"文字', set_about_us_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '"Terms & Conditions"文字', set_terms_conditions_path
+        .row.label_row_2
+          .col-xs-12
+            =link_to '"Privacy & Security"文字', set_privacy_security_path
+      .col-xs-10.label_row_1
+        =form_for :site_photo, :url=>'process_site_photo', :method=>'post'  do |f|
+          .col-xs-4
+            .col-xs-2
+              = f.submit "保存", class: "btn", style:'width:50px'
+            .col-xs-2
+              = link_to '取消', set_home_ad_path, :class=>'btn btn_1'
+          .row.col-xs-12(style="margin: 80px 100px;" )
+            .col-xs-6
+              .row.login_row_1
+                .col-xs-3.padding-top-8
+                  背景图：
+                .col-xs-7
+                  %input.form-control#show_logo_input_1
+                  = f.file_field :photo_1, :class=>'form-control', :id=>'logo_input_1', :style=>'display:none'
+                .col-xs-2
+                  %a.btn#overlook_1
+                    上传图片
+              .row.login_row_1
+                .col-xs-3.padding-top-8
+                  Logo图：
+                .col-xs-7
+                  %input.form-control#show_logo_input_2
+                  = f.file_field :photo_2, :class=>'form-control', :id=>'logo_input_2', :style=>'display:none'
+                .col-xs-2
+                  %a.btn#overlook_2
+                    上传图片
+              .row.login_row_3
+                -if session[:success]=='true'
+                  =render 'admin/update_site_photo_sucess'
+  =render 'show/show_footer'

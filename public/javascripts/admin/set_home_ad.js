@@ -1,0 +1,18 @@
+$(document).ready(function(){
+    reload_image("overlook_1","logo_input_1","show_logo_input_1");
+    reload_image("overlook_2","logo_input_2","show_logo_input_2");
+    reload_image("overlook_3","logo_input_3","show_logo_input_3");
+    reload_image("overlook_4","logo_input_4","show_logo_input_4");
+    reload_image("overlook_5","logo_input_5","show_logo_input_5");
+    reload_image("overlook_6","logo_input_6","show_logo_input_6");
+    reload_image("overlook_7","logo_input_7","show_logo_input_7");
+    reload_image("overlook_8","logo_input_8","show_logo_input_8");
+    reload_image("overlook_9","logo_input_9","show_logo_input_9");
+    reload_image("overlook_10","logo_input_10","show_logo_input_10");
+    reload_image("overlook_11","logo_input_11","show_logo_input_11");
+    reload_image("overlook_12","logo_input_12","show_logo_input_12");
+    reload_image("overlook_13","logo_input_13","show_logo_input_13");
+    reload_image("overlook_14","logo_input_14","show_logo_input_14");
+    reload_image("overlook_15","logo_input_15","show_logo_input_15");
+    reload_image("overlook_16","logo_input_16","show_logo_input_16");
+})

@@ -1,0 +1,60 @@
+%body
+  =render 'admin/admin_header'
+  .container.content
+    .row
+      .col-xs-3
+        =link_to '餐馆管理',admin_index_path
+        %span
+          >>修改餐馆信息
+      .row
+        .col-xs-12.add_merchant_div
+          =form_for :modify_merchant  do |f|
+            .row.login_row_1
+              .col-xs-2.add-on-1
+                用户名：
+              .col-xs-7
+                = f.text_field :user_name, :class=>"form-control",:disabled =>"disabled",:value=>"#{@modify_merchant.user_name}"
+              .col-xs-2
+                %font(style="color:#FF0000" )
+                  *不可修改
+            .row.login_row_1
+              .col-xs-2.add-on-1
+                餐馆名称：
+              .col-xs-7
+                = f.text_field :restaurant_name, :class=>"form-control "
+            .row.login_row_1
+              .col-xs-2.add-on-1
+                密码：
+              .col-xs-7
+                = f.text_field :password, :type=>"password", :class=>"form-control",:value=>"#{@modify_merchant.password}123"
+            .row.login_row_1
+              .col-xs-2.add-on-1
+                请确认密码：
+              .col-xs-7
+                = f.text_field :password_confirmation, :type=>"password",  :class=>"form-control",:value=>"#{@modify_merchant.password}123"
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                私房菜：
+              .col-xs-3
+                =f.check_box :private_cuisine
+            .row.login_row_1
+              .col-xs-3.add-on-1
+                外卖：
+              .col-xs-3
+                =f.check_box :outer_sell
+            .row.login_row_2
+              .col-xs-12
+                .btn-danger.active(style="width:480px" )
+                  =flash.now[:error]
+            .row.login_row_3
+              .col-xs-3
+                = f.submit "确认", class: "btn", style:'width:50px'
+              .col-xs-1
+                = link_to '取消', admin_index_path, :class=>'btn btn_1'
+            .row
+              .col-xs-2
+              .col-xs-9
+                -if session[:success]=='true'
+                  =render 'admin/change_success'
+  =render 'show/show_footer'
+
